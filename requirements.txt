@@ -1,5 +1,5 @@
 numpy
 Pillow
 streamlit==1.22.0
-opencv-python
 opencv-python-headless
+streamlit-webrtc
