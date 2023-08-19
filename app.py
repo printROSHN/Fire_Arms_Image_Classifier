@@ -118,16 +118,34 @@ def draw_annotations(image, results):
 
     return image
 
+# if file is not None:
+#     image = Image.open(file).convert("RGB")
+#     image = np.array(image)
+#     image = image[:, :, ::-1].copy()
+#     results = detection(image)
+
+#     annotated_image = draw_annotations(image.copy(), results)
+
+#     # Display annotated image
+#     st.image(annotated_image, caption="Annotated Image", use_column_width=True)
+
+#     # Display results
+#     st.json(results)
+
 if file is not None:
     image = Image.open(file).convert("RGB")
-    image = np.array(image)
-    image = image[:, :, ::-1].copy()
-    results = detection(image)
+    image_np = np.array(image)
+    results = detection(image_np)
 
-    annotated_image = draw_annotations(image.copy(), results)
+    annotated_image = draw_annotations(image_np.copy(), results)
 
-    # Display annotated image
-    st.image(annotated_image, caption="Annotated Image", use_column_width=True)
+    # Display original and annotated images side by side
+    col1, col2 = st.beta_columns(2)
+    with col1:
+        st.image(image, caption="Original Image", use_column_width=True)
+    with col2:
+        st.image(annotated_image, caption="Annotated Image", use_column_width=True)
 
-    # Display results
+    # Display detection results
+    st.subheader("Detection Results")
     st.json(results)
